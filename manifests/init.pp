@@ -1,6 +1,7 @@
 # == Class: wordpress
 #
-# Full description of class wordpress here.
+# Installs and configures NGINX and PHP-FPM
+# for serving Wordpress blogs.
 #
 # === Examples
 #
