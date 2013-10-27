@@ -47,8 +47,8 @@ class wordpress::nginx {
       File["/etc/nginx/wordpress.d/wordpress.conf"],
       File["/etc/nginx/conf.d/default.conf"],
     ],
-    before => [
-      Anchor["nginx::end"],
+    notify => [
+      Service["nginx"],
     ],
   }
 
