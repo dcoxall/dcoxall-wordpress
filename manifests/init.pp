@@ -14,12 +14,21 @@ class wordpress {
 
   class {"wordpress::mysql":}
 
+  exec {"apt-get update":
+    command => "/usr/bin/apt-get update",
+  }
+
   class {"wordpress::php":
-    require => [ Class["wordpress::mysql"] ],
+    require => [
+      Class["wordpress::mysql"],
+      Exec["apt-get update"],
+    ],
   }
 
   class {"wordpress::nginx":
-    require => [ Class["wordpress::nginx"] ],
+    require => [
+      Class["wordpress::php"],
+    ],
   }
 
 }

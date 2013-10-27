@@ -5,7 +5,7 @@ class wordpress::nginx {
   file {"/etc/nginx/wordpress.d/":
     ensure => directory,
     require => [
-      Class["::nginx"]
+      Class["::nginx"],
     ],
   }
 
@@ -25,6 +25,13 @@ class wordpress::nginx {
     content => template("wordpress/nginx/wordpress.erb"),
   }
 
+  file {"/etc/nginx/conf.d/default.conf":
+    ensure => absent,
+    require => [
+      Class["::nginx"],
+    ],
+  }
+
   ::nginx::resource::upstream {"php":
     ensure => present,
     members => [
@@ -32,20 +39,16 @@ class wordpress::nginx {
     ],
   }
 
-  ::nginx::resource::vhost {"wordpress":
+  file {"/etc/nginx/conf.d/wordpress_vhost.conf":
     ensure => present,
-    www_root => "/vagrant",
-    server_name => [
-      "_",
-    ],
-    listen_options => "default",
+    template => template("wordpress/nginx/vhost.erb"),
     require => [
       File["/etc/nginx/wordpress.d/restrictions.conf"],
       File["/etc/nginx/wordpress.d/wordpress.conf"],
+      File["/etc/nginx/conf.d/default.conf"],
     ],
-    include_files => [
-      "/etc/nginx/wordpress.d/restrictions.conf",
-      "/etc/nginx/wordpress.d/wordpress.conf",
+    notify => [
+      Class["::nginx::service"]
     ],
   }
 
