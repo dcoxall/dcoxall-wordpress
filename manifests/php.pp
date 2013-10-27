@@ -7,7 +7,7 @@ class wordpress::php {
   }
 
   ::php::fpm::pool {"www-data":
-    listen => "unix://tmp/php-fpm.sock",
+    listen => "/tmp/php-fpm.sock",
     listen_type => "socket",
     socket_owner => "www-data",
     socket-group => "www-data",
