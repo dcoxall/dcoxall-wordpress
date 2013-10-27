@@ -4,6 +4,9 @@ class wordpress::nginx {
 
   file {"/etc/nginx/wordpress.d/":
     ensure => directory,
+    require => [
+      Class["::nginx"]
+    ],
   }
 
   file {"/etc/nginx/wordpress.d/restrictions.conf":
