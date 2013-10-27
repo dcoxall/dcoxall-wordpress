@@ -1,5 +1,5 @@
 name    'dcoxall-wordpress'
-version '0.1.0'
+version '1.0.0'
 source 'https://github.com/FreakyDazio/dcoxall-wordpress'
 author 'Darren Coxall'
 
