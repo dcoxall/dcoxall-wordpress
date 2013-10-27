@@ -1,11 +1,12 @@
 name    'dcoxall-wordpress'
 version '0.1.0'
-source 'UNKNOWN'
-author 'dcoxall'
-license 'Apache License, Version 2.0'
-summary 'UNKNOWN'
-description 'UNKNOWN'
-project_page 'UNKNOWN'
+source 'https://github.com/FreakyDazio/dcoxall-wordpress'
+author 'Darren Coxall'
 
-## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+summary 'Configure PHP-FPM and NGINX for Wordpress sites.'
+description 'Quickly set-up a Wordpress site using NGINX and PHP-FPM.'
+project_page 'https://github.com/FreakyDazio/dcoxall-wordpress'
+
+dependency 'saz/php', '>= 1.0.4'
+dependency 'jfryman/nginx', '>= 0.0.5'
+dependency 'puppetlabs/mysql', '>= 2.0.1'
