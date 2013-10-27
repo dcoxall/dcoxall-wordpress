@@ -32,7 +32,6 @@ class wordpress::nginx {
   ::nginx::resource::vhost {"wordpress":
     ensure => present,
     www_root => "/vagrant",
-    use_default_location => false,
     server_name => [
       "_",
     ],
