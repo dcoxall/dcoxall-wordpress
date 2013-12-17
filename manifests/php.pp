@@ -2,7 +2,7 @@ class wordpress::php {
 
   class {"::php::fpm":}
 
-  ::php::module {"mysql":
+  ::php::module {["mysql", "curl"]:
     notify => [
       Class["::php::fpm::service"],
     ],
