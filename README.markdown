@@ -8,16 +8,26 @@ Part of the setup also includes a MySQL installation with a database that can be
 
 - Username: wordpress
 - Password: wordpress
-- Host: 127.0.0.1
+- Host: localhost
 - Database: wordpress
 
-### Usage
-Currently there are no configurable settings (this will change) so it is as simple as:
+These options can be overridden as shown below. The mysql user is given access to the database on a wildcard as well as localhost in the event you wish to connect externally.
 
+### Usage
 ```puppet
 include wordpress
 # or
-class {"wordpress":}
+class { "wordpress": }
+```
+
+#### Customising
+```puppet
+class { "wordpress":
+  cache    => false,       # Static asset caching in NGINX (default: false)
+  user     => 'wordpress', # DB User (default: wordpress)
+  password => 'wordpress', # DB Pass (default: wordpress)
+  database => 'wordpress', # DB Name (default: wordpress)
+}
 ```
 
 ### Contribute
