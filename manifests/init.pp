@@ -5,31 +5,42 @@
 #
 # === Examples
 #
-#  class { "wordpress":}
+#  class { "wordpress":
+#    cache    => true,        # Enable/disable static asset caching... default false
+#    database => 'wordpress', # Database name... default wordpress
+#    user     => 'wordpress', # Database user name... default wordpress
+#    password => 'wordpress', # Database user password... default wordpress
+#  }
 #
 # === Authors
 #
 # Darren Coxall <darren@darrencoxall.com>
 #
-class wordpress {
-
-  class {"wordpress::mysql":}
-
-  exec {"apt-get update":
-    command => "/usr/bin/apt-get update",
+class wordpress(
+  $cache    = false,
+  $database = 'wordpress',
+  $user     = 'wordpress',
+  $password = 'wordpress',
+) {
+  Exec {
+    path => "/usr/bin",
   }
 
-  class {"wordpress::php":
-    require => [
-      Class["wordpress::mysql"],
-      Exec["apt-get update"],
-    ],
+  exec { "apt-get update": }
+
+  class { "wordpress::mysql":
+    database => $database,
+    user     => $user,
+    password => $password,
+    require  => Exec["apt-get update"]
   }
 
-  class {"wordpress::nginx":
-    require => [
-      Class["wordpress::php"],
-    ],
+  class { "wordpress::nginx":
+    cache   => $cache,
+    require => Exec["apt-get update"]
   }
 
+  class { "wordpress::php":
+    require => Exec["apt-get update"]
+  }
 }
